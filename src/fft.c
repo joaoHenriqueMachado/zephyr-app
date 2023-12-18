@@ -10,5 +10,5 @@ static int generate_fft_cmd_handler(const struct shell *sh, size_t argc, char **
     return 0;
 }
 
-SHELL_SUBCMD_DICT_SET_CREATE(sub_fft, generate_fft_cmd_handler, (sine, 1, "FFT_Sine"), (cosine, 2, "FFT_Cosine"));
+SHELL_SUBCMD_DICT_SET_CREATE(sub_fft, generate_fft_cmd_handler, (sine, 1, "FFT_Sine"), (sine_3rd_harmonic, 2, "FFT_Sine_3rd_harmonic"));
 SHELL_CMD_REGISTER(fft, &sub_fft, "Set FFT Signal", NULL);
