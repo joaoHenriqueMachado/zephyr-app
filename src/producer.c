@@ -1,11 +1,5 @@
-/*
- * Copyright (c) 2022 Rodrigo Peixoto <rodrigopex@gmail.com>
- * SPDX-License-Identifier: Apache-2.0
- */
-#include "messages.h"
+#include "main.h"
 
-#include <zephyr/logging/log.h>
-#include <zephyr/zbus/zbus.h>
 LOG_MODULE_DECLARE(zbus, CONFIG_ZBUS_LOG_LEVEL);
 
 ZBUS_CHAN_DEFINE(raw_data_chan, struct sensor_msg, NULL, NULL, ZBUS_OBSERVERS(producer_lis, consumer_sub),
@@ -40,4 +34,4 @@ static void producer_thread(void)
 	}
 }
 
-K_THREAD_DEFINE(produce_thread_id, 1024, producer_thread, NULL, NULL, NULL, 3, 0, 0);
+K_THREAD_DEFINE(produce_thread_id, 1024, producer_thread, NULL, NULL, NULL, PRIORITY, 0, 0);
