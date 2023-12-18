@@ -2,22 +2,27 @@
 
 / {
 	aliases {
+		led0 = &led0;
 		led1 = &led1;
-		sw1 = &sw1;
+		sw0 = &button0;
 	};
 
 	leds {
 		compatible = "gpio-leds";
+		led0: led_0 {
+			gpios = <&gpiog 13 GPIO_ACTIVE_HIGH>;
+			label = "LED 0";
+		};
 		led1: led_1 {
-			gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpiog 14 GPIO_ACTIVE_HIGH>;
 			label = "LED 1";
 		};
 	};
 
 	buttons {
 		compatible = "gpio-keys";
-		sw1: sw_1 {
-			gpios = <&gpioa 10 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		button0: button_0 {
+			gpios = <&gpioa 0 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
 			label = "User button";
 			zephyr,code = <INPUT_KEY_1>;
 		};

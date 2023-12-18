@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/zephyrproject
+cd C:/Zephyr/zephyrproject/
 source .venv/bin/activate
-west flash -d ~/zephyr_workspace/zephyr_app/build/
+west flash -d C:/Zephyr/zephyrproject/zephyr/zephyr_app/build/
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/zephyrproject
+cd C:/Zephyr/zephyrproject/
 source .venv/bin/activate
-west build -p always ~/zephyr_workspace/zephyr_app -d ~/zephyr_workspace/zephyr_app/build
+west build -p always C:/Zephyr/zephyrproject/zephyr/zephyr_app -d C:/Zephyr/zephyrproject/zephyr/zephyr_app/build
 
