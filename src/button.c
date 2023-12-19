@@ -16,8 +16,7 @@ static int64_t previous_cb_time = 0;
 void button_pressed(struct sw *sw, unsigned int pins)
 {
 	int64_t current_cb_time = k_uptime_get();
-	if(current_cb_time - previous_cb_time > DEBOUNCE_TIME_MS)
-	{
+	if (current_cb_time - previous_cb_time > DEBOUNCE_TIME_MS) {
 		printk("Button pressed at %" PRIu32 "\n", k_cycle_get_32());
 		previous_cb_time = current_cb_time;
 	}
@@ -31,23 +30,22 @@ void button(const struct sw *sw, const struct led *led0, uint32_t sleep_ms)
 	struct gpio_dt_spec *led = &led0->spec;
 	int ret;
 
-	if(!gpio_is_ready_dt(spec))
-	{
+	if (!gpio_is_ready_dt(spec)) {
 		printk("Error: button device %s is not ready\n", spec->port->name);
 		return;
 	}
 
 	ret = gpio_pin_configure_dt(spec, GPIO_INPUT);
-	if(ret != 0)
-	{
-		printk("Error %d: failed to configure %s pin %d\n", ret, spec->port->name, spec->pin);
+	if (ret != 0) {
+		printk("Error %d: failed to configure %s pin %d\n", ret, spec->port->name,
+		       spec->pin);
 		return;
 	}
 
 	ret = gpio_pin_interrupt_configure_dt(spec, GPIO_INT_EDGE_TO_ACTIVE);
-	if(ret != 0)
-	{
-		printk("Error %d: failed to configure interrupt on %s pin %d\n", ret, spec->port->name, spec->pin);
+	if (ret != 0) {
+		printk("Error %d: failed to configure interrupt on %s pin %d\n", ret,
+		       spec->port->name, spec->pin);
 		return;
 	}
 
@@ -56,15 +54,14 @@ void button(const struct sw *sw, const struct led *led0, uint32_t sleep_ms)
 	printk("Set up button at %s pin %d\n", spec->port->name, spec->pin);
 
 	if (led->port && !gpio_is_ready_dt(led)) {
-		printk("Error %d: LED device %s is not ready; ignoring it\n",
-		       ret, led->port->name);
+		printk("Error %d: LED device %s is not ready; ignoring it\n", ret, led->port->name);
 		led->port = NULL;
 	}
 	if (led->port) {
 		ret = gpio_pin_configure_dt(led, GPIO_OUTPUT);
 		if (ret != 0) {
-			printk("Error %d: failed to configure LED device %s pin %d\n",
-			       ret, led->port->name, led->pin);
+			printk("Error %d: failed to configure LED device %s pin %d\n", ret,
+			       led->port->name, led->pin);
 			led->port = NULL;
 		} else {
 			printk("Set up LED at %s pin %d\n", led->port->name, led->pin);
@@ -89,4 +86,4 @@ void button0(void)
 	button(&sw0, &led1, 200);
 }
 
-K_THREAD_DEFINE(button0_id, STACKSIZE, button0, NULL, NULL, NULL,PRIORITY, 0, 0);
+K_THREAD_DEFINE(button0_id, STACKSIZE, button0, NULL, NULL, NULL, PRIORITY, 0, 0);

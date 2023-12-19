@@ -11,4 +11,4 @@ list(APPEND CONF_FILE "boards/stm32f429i_disc1.conf")
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(se28cp_app)
 
-target_sources(app PRIVATE src/main.c src/producer.c src/consumer.c src/blink.c src/button.c src/stm32f4xx_hal_msp.c)
+target_sources(app PRIVATE src/main.c src/producer.c src/consumer.c src/blink.c src/button.c)
