@@ -50,7 +50,8 @@ extern "C" {
 #include <inttypes.h>
 #include <string.h>
 #include <stdint.h>
-
+#include <math.h>
+#include "arm_const_structs.h"
 #include "messages.h"
 /* USER CODE END Includes */
 
@@ -70,6 +71,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -84,6 +86,9 @@ extern "C" {
 #define PRIORITY         7
 #define SLEEP_TIME_MS    200
 #define DEBOUNCE_TIME_MS 50
+#define SINE_SIGNAL      1
+#define SINE_3RD_SIGNAL  2
+#define M_PI             3.14159265358979323846
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
