@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "~/zephyrproject/zephyr/include/**"
+                "~/zephyrproject/zephyr/include/**",
+                "~/zephyrproject/modules/hal/stm32/stm32cube/stm32f4xx/drivers/src",
+                "~/zephyrproject/modules/hal/stm32/stm32cube/stm32f4xx/drivers/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
