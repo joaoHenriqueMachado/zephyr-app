@@ -51,7 +51,7 @@ extern "C" {
 #include <string.h>
 #include <stdint.h>
 #include <math.h>
-#include "arm_const_structs.h"
+#include <arm_const_structs.h>
 #include "messages.h"
 /* USER CODE END Includes */
 
@@ -89,6 +89,7 @@ void Error_Handler(void);
 #define SINE_SIGNAL      1
 #define SINE_3RD_SIGNAL  2
 #define M_PI             3.14159265358979323846
+#define SIGNAL_SIZE      256
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

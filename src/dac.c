@@ -93,9 +93,17 @@ static void MX_ADC1_Init(void)
 	/** Configure for the selected ADC regular channel its corresponding rank in the sequencer
 	 * and its sample time.
 	 */
+	if (HAL_ADC_Init(&hadc1) != HAL_OK) {
+	}
+
+	/** Configure for the selected ADC regular channel its corresponding rank in the sequencer
+	 * and its sample time.
+	 */
 	sConfig.Channel = ADC_CHANNEL_1;
 	sConfig.Rank = 1;
 	sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) {
+	}
 	/* USER CODE BEGIN ADC1_Init 2 */
 
 	/* USER CODE END ADC1_Init 2 */
@@ -620,3 +628,34 @@ static int generate_sine_cmd_handler(const struct shell *sh, size_t argc, char *
 SHELL_SUBCMD_DICT_SET_CREATE(sub_signal, generate_sine_cmd_handler, (sine, SINE_SIGNAL, "Sine"),
 			     (sine_3rd_harmonic, SINE_3RD_SIGNAL, "Sine_3rd_harmonic"));
 SHELL_CMD_REGISTER(dac, &sub_signal, "Set DAC Signal", NULL);
+
+static int print_cmd_handler(const struct shell *sh, size_t argc, char **argv, void *data)
+{
+	ARG_UNUSED(argc);
+	ARG_UNUSED(argv);
+
+	int first_harm = atoi(argv[1]);
+	int number_harm = atoi(argv[2]);
+
+	if ((first_harm >= 0) && (number_harm > 0)) {
+		shell_print(sh, "FFT result for the current DAC signal (%d, %d): ", first_harm,
+			    number_harm);
+		for (int i = first_harm; i < (number_harm + first_harm); i++) {
+			if (i == 0) {
+				shell_print(sh, "%f ", mod[i] / 2.0);
+			} else {
+				shell_print(sh, "%f ", mod[i]);
+			}
+		}
+		shell_print(sh, "\n\r");
+	} else {
+		shell_print(sh, "Invalid parameters!\n\r");
+	}
+
+	return 0;
+}
+
+SHELL_STATIC_SUBCMD_SET_CREATE(sub_print,
+			       SHELL_CMD(fft, NULL, "Print params command.", print_cmd_handler),
+			       SHELL_SUBCMD_SET_END);
+SHELL_CMD_REGISTER(print, &sub_print, "Print commands", NULL);
